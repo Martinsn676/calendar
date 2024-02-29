@@ -1,0 +1,59 @@
+.color-green{
+    background-color: green;
+}
+.color-pink{
+    background-color: pink;
+}
+.color-red{
+    background-color: red;
+}
+.color-blue{
+    color: white;
+    background-color: blue;
+}
+.color-yellow{
+    background-color: rgb(210,255,83);
+    color: black;
+}
+
+//  'colors':[['green','something'],'red','blue','yellow','pink'],
+
+
+
+.dayContainer{
+
+    padding: 10px;
+    @media only screen and (max-width: 699px) {
+        width: 100%;
+    }
+    min-height: 100px;
+
+    .dayNumber{
+        top: 5px
+    }
+    .dayElement{
+        font-size: 0.7rem;
+        padding: 3px;
+        div{
+            padding: 3px 7px;
+            
+        }
+    }
+    .container{
+        margin-top: 20px;
+        padding-top: 20px;
+        height: 100%;
+        width: 100%;
+    }
+    .dayElement > div{
+        padding: 10px 20px;
+        margin: 2px auto;
+        border-radius: 10px;
+    }
+    .bordered{
+        border: rgba(0,0,0,0.1);
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+    }
+}

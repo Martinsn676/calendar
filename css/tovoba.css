@@ -1,0 +1,58 @@
+.color-green {
+  background-color: green;
+}
+
+.color-pink {
+  background-color: pink;
+}
+
+.color-red {
+  background-color: red;
+}
+
+.color-blue {
+  color: white;
+  background-color: blue;
+}
+
+.color-yellow {
+  background-color: rgb(210, 255, 83);
+  color: black;
+}
+
+.dayContainer {
+  padding: 10px;
+  min-height: 100px;
+}
+@media only screen and (max-width: 699px) {
+  .dayContainer {
+    width: 100%;
+  }
+}
+.dayContainer .dayNumber {
+  top: 5px;
+}
+.dayContainer .dayElement {
+  font-size: 0.7rem;
+  padding: 3px;
+}
+.dayContainer .dayElement div {
+  padding: 3px 7px;
+}
+.dayContainer .container {
+  margin-top: 20px;
+  padding-top: 20px;
+  height: 100%;
+  width: 100%;
+}
+.dayContainer .dayElement > div {
+  padding: 10px 20px;
+  margin: 2px auto;
+  border-radius: 10px;
+}
+.dayContainer .bordered {
+  border: rgba(0, 0, 0, 0.1);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+}

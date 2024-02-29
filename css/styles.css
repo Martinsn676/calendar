@@ -21,29 +21,24 @@
   padding: 3px 7px;
 }
 
-.container {
+.dayContainer .container, #modal .container {
   position: relative;
   margin-top: 20px;
   padding-top: 20px;
   height: 100%;
   width: 100%;
 }
-
-.dayElement > div {
-  background-color: blue;
-  color: white;
-  padding: 20px;
-  margin: 5px auto;
+.dayContainer .dayElement > div, #modal .dayElement > div {
+  padding: 10px 20px;
+  margin: 2px auto;
   border-radius: 10px;
-  width: 50%;
   text-align: center;
 }
-
-.bordered {
+.dayContainer .bordered, #modal .bordered {
   border: rgba(0, 0, 0, 0.1);
   border-width: 1px;
   border-style: solid;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 
 #modal.hidden {
@@ -82,28 +77,32 @@
   min-height: 300px;
   margin-top: 20px;
 }
+#modal #leftModal #dayPreview .dayElement > div {
+  width: 80%;
+}
 #modal #leftModal #dayPreview .dayNumber {
   position: absolute;
   top: 10px;
 }
 
 .color-green {
-  background-color: green !important;
+  background-color: green;
 }
 
 .color-pink {
-  background-color: pink !important;
+  background-color: pink;
 }
 
 .color-red {
-  background-color: red !important;
+  background-color: red;
 }
 
 .color-blue {
-  background-color: blue !important;
+  color: white;
+  background-color: blue;
 }
 
 .color-yellow {
-  background-color: rgb(210, 255, 83) !important;
-  color: black !important;
+  background-color: rgb(210, 255, 83);
+  color: black;
 }

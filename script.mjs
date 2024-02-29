@@ -1,3 +1,5 @@
+import { tovobaColors } from "./tovobo.mjs"
+
 const calendar = {
     addDays(){
         this.container = document.getElementById('mainContainer')
@@ -8,16 +10,14 @@ const calendar = {
         let newHtml = ""
         for(let i = 0; i < 35; i ++ ){
             const  gottenItem = localStorage.getItem('day'+i)
-console.log(gottenItem)
             let save =JSON.parse(gottenItem)
             save = save ? save : []
-console.log(save)
             let elementsHtml = ""
 
             const numberSaves = save.length
             for(let j = 0; j <6; j++){
                 if(j<numberSaves){
-                    elementsHtml += `<div id="element${j}" class="dayElement"><div class="color-${save[j]}">${save[j]}</div></div>`
+                    elementsHtml += `<div id="element${j}" class="dayElement"><div class="${save[j][1]}">${save[j][0]}</div></div>`
                 }else{
                     elementsHtml += `<div id="element2" class="dayElement"></div>`
                 }
@@ -36,14 +36,13 @@ console.log(save)
         return newHtml
     },
     addFunctions(){
-        this.allContainers = document.querySelectorAll('.dayContainer ')
-        console.log("this.allContainers",this.allContainers)
-        this.allContainers.forEach((container) => {
-            container.addEventListener('click',(event)=>{
-                console.log('clicked')
-                modal.displayModal(event.target)
-            })
+    this.allContainers = document.querySelectorAll('.dayContainer ')
+
+    this.allContainers.forEach((container, index) => {
+        container.addEventListener('click', (event) => {
+            modal.displayModal(index);
         });
+    });
     }
 
 }
@@ -51,9 +50,10 @@ console.log(save)
 calendar.addDays()
 
 const modal = {
-    'colors':['green','red','blue','yellow','pink'],
+    'colors':[],
     'currentDay':"",
     setup(){
+        this.colors = tovobaColors
         this.container = document.getElementById('modal')
         this.container.innerHTML=`
             <div id="modalBackground"></div>
@@ -80,56 +80,79 @@ const modal = {
             this.toggleDispay()
             calendar.addDays()
         })
-        this.allDayElements = this.container.querySelectorAll('.dayElement')
-        this.allDayElements.forEach((element)=>{
-            console.log(element)
-        })
         this.allColorButtons.forEach((button)=>{
             button.addEventListener('click',(event)=>{
-                console.log(event.target.innerText)
-                this.addToDay(event.target.innerText)
+                this.addToDay(event.target.classList[0])
+
+                
             })
         })
-        console.log("this.allDayElements",this.allDayElements)
+
     },
     toggleDispay(){
         this.container.classList.toggle('hidden')
     },
-    displayModal(target){
-        this.dayPreview.innerHTML=target.parentElement.innerHTML
+    displayModal(x){
+
+        this.dayPreview.innerHTML=calendar.allContainers[x].innerHTML
         this.toggleDispay()
         this.currentDay = this.dayPreview.querySelector('.dayNumber').id
- this.allDayElements = this.container.querySelectorAll('.dayElement')
+        this.allPreviewElements = this.dayPreview.querySelectorAll('.dayElement')
+        this.allPreviewElements.forEach((element,index)=>{
+            element.addEventListener('click',()=>{
+                this.deleteElement(index)
+            })
+        })
 
+    },
+    deleteElement(removeIndex){
+        let html = ""
+        this.allPreviewElements.forEach((element,index)=>{
+            if(index!=removeIndex){
+                html+=element.outerHTML
+            }
+        })
+        console.log(html)
+        this.dayPreview.querySelector('.container').innerHTML = html
+
+        this.updatePreviewElements()
+
+    },
+    updatePreviewElements(){
+        let save = []
+        this.allPreviewElements = this.dayPreview.querySelectorAll('.dayElement')
+        this.allPreviewElements.forEach((element,index)=>{
+            const content = element.querySelector('div')
+            if(content){
+                save.push([content.innerText,content.classList[0]])
+            }
+            element.addEventListener('click',()=>{
+                this.deleteElement(index)
+            })
+        })
+        localStorage.setItem(this.currentDay,JSON.stringify(save))
     },
     addToDay(color){
         let placed = false
-        this.allDayElements.forEach((container)=>{
+        const text = this.textInput.value
+        if(text.length<3){
+            return
+        }
+        this.allPreviewElements.forEach((container)=>{
             if(!placed && container.innerHTML===""){
-                const text = this.textInput.value
                 this.textInput.value=""
                 container.innerHTML = `<div class="color-${color}">${text}</div>`
                 placed = true
             }
         })
-        let save  = []
-        this.allDayElements.forEach((container)=>{
-            const content = container.querySelector('div')
-            if(content){
-                save.push([content.innerText,content.classList])
-            }
 
-        })
-console.log(save)
-console.log(typeof save)
-        localStorage.setItem(this.currentDay,JSON.stringify(save))
-        console.log(this.allDayElements)
+        this.updatePreviewElements()
     },
     colorsTemplate(){
         let newHtml = ""
         this.colors.forEach((color)=>{
             newHtml+=`
-                <button id=color-${color}>${color}</button>
+                <button id="color-${color[0]}" class="color-${color[0]}">${color[1]}</button>
             `
         })
         return newHtml
