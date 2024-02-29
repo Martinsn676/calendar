@@ -82,10 +82,15 @@ const modal = {
         })
         this.allColorButtons.forEach((button)=>{
             button.addEventListener('click',(event)=>{
-                this.addToDay(event.target.classList[0])
-
-                
+                this.addToDay(event.target.classList[0])                
             })
+        })
+        this.textInput.addEventListener('keyup',(event)=>{
+            this.editingElement.innerText = this.textInput.value
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                this.updatePreviewElements()
+                this.textInput.value=""
+            }   
         })
 
     },
@@ -108,6 +113,7 @@ const modal = {
     deleteElement(removeIndex){
         let html = ""
         this.allPreviewElements.forEach((element,index)=>{
+            element.id=""
             if(index!=removeIndex){
                 html+=element.outerHTML
             }
@@ -119,6 +125,7 @@ const modal = {
 
     },
     updatePreviewElements(){
+console.log('updating')
         let save = []
         this.allPreviewElements = this.dayPreview.querySelectorAll('.dayElement')
         this.allPreviewElements.forEach((element,index)=>{
@@ -134,19 +141,19 @@ const modal = {
     },
     addToDay(color){
         let placed = false
-        const text = this.textInput.value
-        if(text.length<3){
-            return
+        let fixedEdit = 99
+        if(this.editingElement && this.editingElement.innerText.length<3){
+            fixedEdit=this.editingIndex
         }
-        this.allPreviewElements.forEach((container)=>{
-            if(!placed && container.innerHTML===""){
-                this.textInput.value=""
-                container.innerHTML = `<div class="color-${color}">${text}</div>`
+        this.allPreviewElements.forEach((container,index)=>{
+            if(!placed && (container.innerHTML==="" || index===fixedEdit)){
+                container.innerHTML = `<div class="${color}"></div>`
                 placed = true
+                this.editingIndex=index
             }
         })
+        this.editingElement = this.allPreviewElements[this.editingIndex].querySelector('div')
 
-        this.updatePreviewElements()
     },
     colorsTemplate(){
         let newHtml = ""

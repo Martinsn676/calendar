@@ -41,6 +41,38 @@
     }
 }
 #modal{
+    #leftModal,#rightModal{
+        padding: 20px;
+    }
+    #leftModal{
+        position: relative;
+        #dayPreview{
+            min-height: 50%;
+            min-height: 300px;
+            margin-top: 20px;
+            .dayElement > div{
+                width: 80%;
+            }
+            .dayNumber{
+                position: absolute;
+                top: 10px;
+            }
+        }
+    }
+    #rightModal{
+        button{
+            padding: 5px;
+            margin: 2px;
+            border-radius: 5px;
+        }
+    }
+}
+
+
+
+
+
+#modal{
     &.hidden{
         display: none;
     }
@@ -66,40 +98,5 @@
         min-height: 80vh;
         border-radius: 20px;
     }
-    #leftModal,#rightModal{
-        padding: 20px;
-    }
-    #leftModal{
-        position: relative;
-        #dayPreview{
-            min-height: 50%;
-            min-height: 300px;
-            margin-top: 20px;
-            .dayElement > div{
-                width: 80%;
-            }
-            .dayNumber{
-                position: absolute;
-                top: 10px;
-            }
-        }
-    }
-}
 
-.color-green{
-    background-color: green;
-}
-.color-pink{
-    background-color: pink;
-}
-.color-red{
-    background-color: red;
-}
-.color-blue{
-    color: white;
-    background-color: blue;
-}
-.color-yellow{
-    background-color: rgb(210,255,83);
-color: black;
 }
